@@ -1,0 +1,59 @@
+services:
+  php_rabbit:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    networks:
+      - php_network_rabbit
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - rabbit
+      - mysql
+  
+  python_rabbit:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./python:/app
+    networks:
+      - php_network_rabbit
+    depends_on:
+      - rabbit
+      - mysql
+
+  rabbit:
+    image: rabbitmq:3.12.14-management
+    restart: always
+    networks:
+      - php_network_rabbit
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq/
+  
+  mysql:
+    image: mysql
+    restart: always
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+    networks:
+      - php_network_rabbit
+    ports:
+      - 3307:3306
+    env_file:
+      - ./database/.env
+
+
+networks:
+  php_network_rabbit:
+    driver: bridge
