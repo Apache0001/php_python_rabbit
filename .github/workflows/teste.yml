@@ -20,7 +20,7 @@ jobs:
       uses: docker/build-push-action@v6.7.0
       with:
         context: ./src
-        file: ./src/DockerFile
+        file: ./src/Dockerfile
         push: true
         tags: | 
           pablomesq/php-rabbitmq:v${{ github.run_number }}
