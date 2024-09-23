@@ -23,6 +23,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/html
 
 COPY composer.json .
-RUN composer update
+RUN composer install --prefer-source --no-interaction
 
 COPY . .

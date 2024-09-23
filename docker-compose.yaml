@@ -27,6 +27,7 @@ services:
 
   rabbit:
     image: rabbitmq:3.12.14-management
+    container_name: rabbit
     restart: always
     networks:
       - php_network_rabbit
