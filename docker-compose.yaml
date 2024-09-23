@@ -1,8 +1,6 @@
 services:
   php_rabbit:
-    build:
-      context: ./src
-      dockerfile: Dockerfile
+    image: pabloapache/php_rabbitmq:latest
     networks:
       - php_network_rabbit
     restart: always
