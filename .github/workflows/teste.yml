@@ -23,5 +23,5 @@ jobs:
         file: ./src/Dockerfile
         push: true
         tags: | 
-          pablomesq/php-rabbitmq:v${{ github.run_number }}
-          pablomesq/php-rabbitmq:latest
+          pabloapache/php_rabbitmq:v${{ github.run_number }}
+          pabloapache/php_rabbitmq:latest
